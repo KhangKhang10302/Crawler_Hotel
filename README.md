@@ -5,4 +5,4 @@
 - Cào dữ liệu từ booking.com bằng selenium và beautifulsub.
 
 **Trực quan dữ liệu hotel bằng powerBI**
-- Dựa vào biết đồ từ đó căng cứ vào các đặc điểm mình thích để chọn khách sạn.
+- Dựa vào biết đồ từ đó căn cứ vào các đặc điểm mình thích để chọn khách sạn.
