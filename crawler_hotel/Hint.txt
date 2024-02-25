@@ -1,0 +1,6 @@
+Các bước  tìm kiếm: 
+- 1 chon các bộ lọc phù hợp với bản thân -> tìm được phân nhóm khách sạn tìm năng.
+- Dựa vào tiêu chí địa lý để đánh giá chọn ra khách sạn phù hợp
+- dựa vào tiêu chí số người đánh giá, sao, score level, khách sán phù hợp
+- SS với bước 2 bước 3 cũng có thể căng cứ vào mức độ giảm giá để cân nhắc các khách sạn có chương trình khuyển mãi để cùng một số tiền có thể có trải nghiệm tốt hơn.
+- Sau khi chốt được khách sạn thì chọn địa chỉ được cung cấp

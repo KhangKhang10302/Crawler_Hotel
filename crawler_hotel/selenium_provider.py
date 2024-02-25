@@ -1,0 +1,119 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+
+def get_into(element, name_element):
+  element_tmp = element.find_element(By.XPATH, name_element)
+  return element_tmp
+
+
+class Selenium():
+  """
+    This default request selenium. All setting and activate selenium
+    wil declare here, bellow will show a lot of function have declared.
+    We use xpath for define property on website
+      1. get_url will move to your brower to link provided
+      2. get_element get one element by xpath
+      3. get_list_element get list element have same name xpath by xpath
+      4. input select input and paste your data
+      5. button_click that simple click button
+      6. wait_loading_page this is important, this help you wait for web page loading and access property you pass
+  """
+
+  # Option webdriver
+  options = Options()
+  user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.3"
+  options.add_argument(f"user-agent={user_agent}") 
+  
+  # options.add_argument('--headless') # Run without GUI
+  options.add_argument("start-maximized")
+  options.add_argument('--disable-gpu')
+  options.add_argument("--disable-extensions")
+  options.add_argument("--no-sandbox")
+  options.add_argument('--window-size=1920,1080')
+  options.add_argument('--ignore-certificate-errors')
+  options.add_argument("--disable-dev-shm-usage")
+  options.add_argument("--remote-debugging-port=9222")
+  options.add_argument('--allow-running-insecure-content')
+  
+  # If you want chrome and chromedriver to stay open away
+  options.add_experimental_option("detach", False)
+
+  # Load driver selenium
+  service = ChromeService(executable_path=ChromeDriverManager().install(), chrome_options=options)
+  driver = webdriver.Chrome(service=service)
+#   driver = webdriver.Chrome(ChromeDriverManager(version='114.0.5735.90').install(), options=chrome_options)
+#   driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager(version='114.0.5735.90').install()))
+
+
+  # Time delay and timeout
+  time_out = 10
+  time_deplay = 5
+
+  # Wait process load page
+  wait = WebDriverWait(driver, timeout=time_out)
+
+  # get current url
+  def get_current_url(self):
+    return self.driver.current_url 
+    
+  # Link to url
+  def get_url(self, url):
+    self.driver.get(url)
+
+  # Get text in element tag html
+  def get_text(self, name_element):
+    return self.driver.find_element(By.XPATH, name_element).text
+
+  # Get element tag html
+  def get_element(self, name_element):
+    return self.driver.find_element(By.XPATH, name_element)
+
+  # Get list element tag html e.g: list <td>
+  def get_list_element(self, name_element):
+    return self.driver.find_elements(By.XPATH, name_element)
+
+  # Get tag input element html
+  def input(self, name_input, key):
+    input = self.driver.find_element(By.XPATH, name_input)
+    input.click()
+    input.clear()
+    input.send_keys(key)
+
+
+  # Create a action click on any element
+  def element_click(self, name_element):
+    element = self.driver.find_element(By.XPATH, name_element)
+    element.click()
+
+  # 
+  def element_s(self, name_element, text):
+    element = self.driver.find_element(By.XPATH, name_element)
+    element.click()
+    element.send_keys(text)
+
+
+  # Same above but use for button only
+  def button_click(self, name_button):
+    button = self.driver.find_element(By.XPATH, name_button)
+    button.send_keys(Keys.ENTER)
+
+  # This will wait page loading and presence element then return element.
+  def wait_loading_page(self, name):
+    element = self.wait.until(EC.presence_of_element_located((By.XPATH, name)))
+    return element
+
+  # Testing
+  def testing(self, text):
+    assert f"{text}" not in self.driver
+
+  #If not run in mode detach. pls can use it to exlore memory
+  def close(self):
+    self.driver.close()
